@@ -1,1 +1,1 @@
-- [Gitee](https://gitee.com/lvanliu/lvan-note)
+- [Github](https://github.com/LvanLiu/LvanNote)
