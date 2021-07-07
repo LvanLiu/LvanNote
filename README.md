@@ -4,7 +4,7 @@
 [![Forks](https://img.shields.io/github/forks/LvanLiu/LvanNote?style=plastic)](https://github.com/LvanLiu/LvanNote)
 [![](https://img.shields.io/badge/Author-Lvan-orange.svg)](https://gitee.com/lvanliu/lvan-note)
 
-**My Aim**
+**正在做的事**
 
 正在努力的学习架构师所需的技术栈
 
