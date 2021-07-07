@@ -4,9 +4,9 @@
 [![Forks](https://img.shields.io/github/forks/LvanLiu/LvanNote?style=plastic)](https://github.com/LvanLiu/LvanNote)
 [![](https://img.shields.io/badge/Author-Lvan-orange.svg)](https://gitee.com/lvanliu/lvan-note)
 
-**成神之路**
+**My Aim**
 
-要想成神，必须苦其心志 劳其筋骨 饿其体肤 空乏其身 行拂乱其所为。
+正在努力的学习架构师所需的技术栈
 
 **更新**
 
