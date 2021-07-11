@@ -2,94 +2,98 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Lvan's Note</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+    <meta charset="UTF-8">
+    <title>Lvan's Note</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="Description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
 </head>
 
 <body>
-  <div id="app">loading...</div>
-  <script>
+<div id="app">loading...</div>
+<script>
     window.$docsify = {
-      name: 'Lvan’s Note',
-      repo: 'https://github.com/LvanLiu/LvanNote/',
-      loadSidebar: true,
-      subMaxLevel: 3,
-      // loadNavbar: true,
-      // mergeNavbar: true,
-      coverpage: true,
-      onlyCover: true,
-      // 切换页面后跳回页面顶部
-      auto2top: true,
-      alias: {
-        '/.*/_sidebar.md': '/_sidebar.md'
-      },
-      search: {
-        maxAge: 86400000,               // 过期时间，单位毫秒，默认一天
-        paths: 'auto',                      // or 'auto'，匹配文件路径
-        placeholder: 'Type to search',  // 搜索提示框文字
-        noData: 'No Results!',          // 找不到结果文字提示
-        depth: 6,                       // 搜索标题的最大程级, 1 - 6
-      },
-      // 字数插件
-      count: {
-        countable: true,
-        position: 'top',
-        margin: '10px',
-        float: 'right',
-        fontsize: '0.9em',
-        color: 'rgb(90,90,90)',
-        language: 'chinese',
-        localization: {
-          words: "",
-          minute: ""
+        name: 'Lvan’s Note',
+        repo: 'https://github.com/LvanLiu/LvanNote/',
+        loadSidebar: true,
+        sidebarDisplayLevel: 1,
+        subMaxLevel: 3,
+        // loadNavbar: true,
+        // mergeNavbar: true,
+        coverpage: true,
+        onlyCover: true,
+        // 切换页面后跳回页面顶部
+        auto2top: true,
+        alias: {
+            '/.*/_sidebar.md': '/_sidebar.md'
         },
-        isExpected: true
-      },
-      // 文本高亮
-      'flexible-alerts': {
-        style: 'flat',
-        note: {
-          label: "信息"
+        search: {
+            maxAge: 86400000,               // 过期时间，单位毫秒，默认一天
+            paths: 'auto',                      // or 'auto'，匹配文件路径
+            placeholder: 'Type to search',  // 搜索提示框文字
+            noData: 'No Results!',          // 找不到结果文字提示
+            depth: 6,                       // 搜索标题的最大程级, 1 - 6
         },
-        tip: {
-          label: "提示"
+        // 字数插件
+        count: {
+            countable: true,
+            position: 'top',
+            margin: '10px',
+            float: 'right',
+            fontsize: '0.9em',
+            color: 'rgb(90,90,90)',
+            language: 'chinese',
+            localization: {
+                words: "",
+                minute: ""
+            },
+            isExpected: true
         },
-        warning: {
-          label: "注意"
+        // 文本高亮
+        'flexible-alerts': {
+            style: 'flat',
+            note: {
+                label: "信息"
+            },
+            tip: {
+                label: "提示"
+            },
+            warning: {
+                label: "注意"
+            },
+            attention: {
+                label: "切记"
+            }
         },
-        attention: {
-          label: "切记"
+        // 分页导航插件
+        pagination: {
+            previousText: '上一卷',
+            nextText: '下一卷',
+            crossChapter: true,
+            crossChapterText: true
         }
-      },
-      // 分页导航插件
-      pagination: {
-        previousText: '上一卷',
-        nextText: '下一卷',
-        crossChapter: true,
-        crossChapterText: true
-      }
     }
-  </script>
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
-  <!-- 复制代码插件 -->
-  <script src="//unpkg.com/npm/docsify-copy-code"></script>
-  <!--图片缩放插件 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-  <!--上一篇/下一篇  -->
-  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
-  <!-- 字数统计 -->
-  <script src="https://cdn.jsdelivr.net/npm/docsify-count@latest/dist/countable.min.js"></script>
-  <!-- 侧边栏扩展与折叠 -->
-  <!-- <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script> -->
-  <script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
+</script>
+<!-- Docsify v4 -->
+<script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+<script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+<!-- 复制代码插件 -->
+<script src="//unpkg.com/npm/docsify-copy-code"></script>
+<!--图片缩放插件 -->
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+<!--上一篇/下一篇  -->
+<script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+<!-- 字数统计 -->
+<script src="https://cdn.jsdelivr.net/npm/docsify-count@latest/dist/countable.min.js"></script>
+<!-- 侧边栏扩展与折叠 -->
+<!-- <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script> -->
+<script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar-folder.min.css"/>
 </body>
 
 </html>
