@@ -1,4 +1,4 @@
-<img src="img.jpg">
+<img src="img.png">
 
 [![Stars](https://img.shields.io/github/stars/LvanLiu/LvanNote?style=plastic)](https://github.com/LvanLiu/LvanNote)
 [![Forks](https://img.shields.io/github/forks/LvanLiu/LvanNote?style=plastic)](https://github.com/LvanLiu/LvanNote)
