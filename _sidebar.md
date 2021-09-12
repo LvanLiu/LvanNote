@@ -18,6 +18,9 @@
   - [代码的坏味道](程序设计/代码的坏味道.md)
   - [圈复杂度](程序设计/圈复杂度.md)
 
+- :seedling: **编程语言**
+  - [高效Java——基础篇](编程语言/effective-java-basic.md)
+
 - :palm_tree: **微服务**
   - 配置中心
     - [Apollob部署-踩坑记录](微服务/配置中心/apollo-踩坑记录.md)

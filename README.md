@@ -1,44 +1,41 @@
+
 <img src="img.png">
 
 [![Stars](https://img.shields.io/github/stars/LvanLiu/LvanNote?style=plastic)](https://github.com/LvanLiu/LvanNote)
 [![Forks](https://img.shields.io/github/forks/LvanLiu/LvanNote?style=plastic)](https://github.com/LvanLiu/LvanNote)
 [![](https://img.shields.io/badge/Author-Lvan-orange.svg)](https://gitee.com/lvanliu/lvan-note)
 
-### :yum: I have a dream
+> 不积跬步，无以至千里；不积小流，无以成江海。——荀子《劝学篇》
 
-世界和平
+# :yum: about me
 
-### :bookmark: 目录
+**我不聪明，但我不放弃对技术的热爱与执着。**
 
-##### :bowling: 进阶攻略
+# :key: My Plan
 
-- [打怪路线](进阶路线/打怪路线.md)
+> [!attention]
+> **Achievement**
+>
+> - 掌握编程的原则、设计原理、编程的规范
 
-##### :art: 计算机基础
+> [!NOTE]
+> **Todo Learn**
+>
+> - 软件工程
+> - Java并发
+> - Java集合源码分析
+> - Java常用类源码分析
 
-- [关于CPU的那些事](计算机基础/关于CPU的那些事.md)
+> [!TIP]
+> **Something book need to read**
+>
+> - 《架构整洁之道》
+> - 《重构-改善既有代码设计》
+> - 《修改代码的艺术》
 
-##### :dart: 数据结构与算法
+> [!WARNING]
+> **Doing**
+>
+> - learning effective java
+> - 设计原理、设计模式
 
-- [数据结构-数组](数据结构与算法/数据结构-数组.md)
-
-##### :pencil2: 程序设计
-
-- [编程的原则](程序设计/编程的原则.md)
-- [软件架构基本技法](程序设计/软件架构基本技法.md)
-- [七个设计原理](程序设计/七个设计原理.md)
-- [程序员的自我修养](程序设计/程序员的自我修养.md)
-- [有意义的命名](程序设计/有意义的命名.md)
-- [函数](程序设计/函数.md)
-- [整洁的代码](程序设计/整洁的代码.md)
-- [代码的坏味道](程序设计/代码的坏味道.md)
-- [圈复杂度](程序设计/圈复杂度.md)
-
-##### :palm_tree: 微服务
-
-- **配置中心**
-  - [Apollo部署-踩坑记录](微服务/配置中心/apollo-踩坑记录.md)
-
-##### :muscle: **效率工程**
-
-- [10x程序员工作法](效率工程/10x程序员工作法.md)
