@@ -16,31 +16,23 @@
 **:calendar: 规划：**
 
 > [!attention]
-> **SMART**
+> Prometheus Studing Plan
 >
-> - S
-> - M
-> - A
-> - R
-> - T
+> - Prometheus技术出现的背景、初衷、达到了什么目的和解决了什么问题？
+> - Prometheus的优缺点，有什么特性、没有什么特性
+> - Prometheus适用什么场景
+> - Prometheus的架构
+> - Prometheus的原理
+> - 已有的框架与Prometheus的对比
+> - Prometheus的应用
+> - 完善公司的Prometheus监控
 
 ----
 
-> [!NOTE]
-> **Teaching**
+> [!tip]
+> design mode Studing Plan
 >
-> - How to teach other?
-
-----
-
-> [!TIP]
-> **Pull Right**
->
-> - something wrong?
-
-----
-
-> [!WARNING]
-> **Simplify**
->
-> - make it easy
+> - 设计原则、面向对象与设计模式之间的关联？
+> - 面向对象VS面向过程
+> - 设计原则
+> - 单例设计模式
