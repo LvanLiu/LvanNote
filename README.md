@@ -7,43 +7,40 @@
 
 > 不积跬步，无以至千里；不积小流，无以成江海。——荀子《劝学篇》
 
-# :yum: about me
+**:smirk: 关于我：**
 
-**我不聪明，但我不放弃对技术的热爱与执着。**
+一个热爱技术的菜鸟。
 
-# :key: My Plan
+----
+
+**:calendar: 规划：**
 
 > [!attention]
-> **Achievement**
+> **SMART**
 >
-> - 掌握编程的原则、设计原理、编程的规范
+> - S
+> - M
+> - A
+> - R
+> - T
 
-------
+----
 
 > [!NOTE]
-> **Todo Learn**
+> **Teaching**
 >
-> - 软件工程
-> - Java并发
-> - Java集合源码分析
-> - Java常用类源码分析
+> - How to teach other?
 
-------
+----
 
 > [!TIP]
-> **Something book need to read**
+> **Pull Right**
 >
-> - 《架构整洁之道》
-> - 《重构-改善既有代码设计》
-> - 《修改代码的艺术》
+> - something wrong?
 
-------
+----
 
 > [!WARNING]
-> **Doing**
+> **Simplify**
 >
-> - learning effective java
-> - 设计原理、设计模式
-> - Prometheus深入学习
-
-------
+> - make it easy
