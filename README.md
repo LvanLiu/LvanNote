@@ -18,6 +18,8 @@
 >
 > - 掌握编程的原则、设计原理、编程的规范
 
+------
+
 > [!NOTE]
 > **Todo Learn**
 >
@@ -26,6 +28,8 @@
 > - Java集合源码分析
 > - Java常用类源码分析
 
+------
+
 > [!TIP]
 > **Something book need to read**
 >
@@ -33,9 +37,13 @@
 > - 《重构-改善既有代码设计》
 > - 《修改代码的艺术》
 
+------
+
 > [!WARNING]
 > **Doing**
 >
 > - learning effective java
 > - 设计原理、设计模式
+> - Prometheus深入学习
 
+------
