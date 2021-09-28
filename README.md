@@ -16,29 +16,10 @@
 **:calendar: 规划：**
 
 > [!attention]
-> Prometheus Studing Plan
+> Jpa Studing Plan
 >
 > - Prometheus技术出现的背景、初衷、达到了什么目的和解决了什么问题？
-> - Prometheus的优缺点，有什么特性、没有什么特性
-> - Prometheus适用什么场景
-> - Prometheus的架构
-> - Prometheus的原理
-> - 已有的框架与Prometheus的对比
-> - Prometheus的应用
-> - 完善公司的Prometheus监控
-
-----
-
-> [!tip]
-> design mode Studing Plan
->
-> - 单例设计模式
-
-----
-
-> [!warning]
-> Java
->
+> - 工厂设计模式
 > - 泛型
 > - 反射
 > - 注解
@@ -46,3 +27,4 @@
 > - 代理
 > - 用好枚举
 > - Java容器使用经验总结
+> - SpEl表达式
