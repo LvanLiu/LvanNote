@@ -28,6 +28,10 @@
   - [深入理解序列化——Java序列化](编程语言/深入理解序列化——Java序列化.md)
   - [一文掌握泛型](编程语言/一文掌握泛型.md)
 
+- :sunrise: spring
+  - JPA从入门到放弃
+    - [初识JPA](Spring/初识JPA.md)
+
 - :palm_tree: **微服务**
   - 配置中心
     - [Apollob部署-踩坑记录](微服务/配置中心/apollo-踩坑记录.md)
