@@ -16,10 +16,8 @@
 **:calendar: 规划：**
 
 > [!attention]
-> Jpa Studing Plan
 >
-> - Prometheus技术出现的背景、初衷、达到了什么目的和解决了什么问题？
-> - 工厂设计模式
+> - JPA Criteria Query
 > - 反射
 > - 注解
 > - 内部类
