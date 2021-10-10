@@ -171,8 +171,12 @@ public Page<User> fetchUsersByPage(int pageNum, int pageSize) {
 }
 ```
 
-## 实战4：flush与JPA生命周期实战
+## 实战4：QueryByExampleExecutor实战
 
-## 实战5：QueryByExampleExecutor实战
+## 扩展1：save vs saveAndFlush
 
-## 实战6：动态查询
+通常，Hibernate将持久状态保存在内存中。将此状态同步到基础DB的过程称为刷新。
+
+- save: 调用此方法，更新的操作是保存在内存中的，直到调用flush()或commit()时，才会刷新到DB。
+
+- saveAndFlush：调用此方法，更新的操作保存在内存中，并刷新到DB。它其实是save + flush的组合使用。
