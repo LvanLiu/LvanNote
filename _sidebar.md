@@ -32,6 +32,7 @@
   - JPA从入门到放弃
     - [初识JPA](Spring/初识JPA.md)
     - [JPA快速入门](Spring/JPA快速入门.md)
+    - [JPA基础查询](Spring/JPA基础查询.md)
 
 - :palm_tree: **微服务**
   - 配置中心

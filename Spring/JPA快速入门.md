@@ -14,7 +14,7 @@
 
 创建用户表，SQL如下：
 
-```SQL
+```mysql
 create table user
 (
     id    int auto_increment
@@ -54,3 +54,55 @@ create table user
 
 - 数据源配置
 
+```javascript
+spring.datasource.name=jpa-demo
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/demo
+spring.datasource.username=guest
+spring.datasource.password=guest
+```
+
+### 编写代码
+
+1. 创建一个Entity，代码如下：
+
+```java
+@Getter
+@Setter
+@Entity
+public class User {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Integer id;
+    private String name;
+    private String email;
+}
+```
+
+2. 继承CrudRepository接口，获得增删改查能力，代码如下：
+
+```java
+@Repository
+public interface UserCrudRepository extends CrudRepository<User, Integer> {
+}
+```
+
+3. 编写测试类
+
+可以通过编写测试来测试CrudRepository的功能。
+
+```java
+@SpringBootTest
+class UserCrudRepositoryTest {
+
+    @Resource
+    private UserCrudRepository userCrudRepository;
+
+    @Test
+    void testFindAll() {
+        Iterable<User> users = userCrudRepository.findAll();
+        assertThat(users).isNotNull();
+    }
+}
+```
