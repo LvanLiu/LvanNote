@@ -173,6 +173,29 @@ public Page<User> fetchUsersByPage(int pageNum, int pageSize) {
 
 ## 实战4：QueryByExampleExecutor实战
 
+- 不使用匹配器
+
+查询指令名称的所有用户列表：
+
+```java
+@Override
+public List<User> fetchAllByName(String name) {
+
+    User user = new User();
+    user.setName(name);
+
+    return userRepository.findAll(Example.of(user));
+}
+```
+
+- 多种条件组合查询
+
+根据名称模糊查询，不区分大小写
+
+```java
+
+```
+
 ## 扩展1：save vs saveAndFlush
 
 通常，Hibernate将持久状态保存在内存中。将此状态同步到基础DB的过程称为刷新。
@@ -180,3 +203,5 @@ public Page<User> fetchUsersByPage(int pageNum, int pageSize) {
 - save: 调用此方法，更新的操作是保存在内存中的，直到调用flush()或commit()时，才会刷新到DB。
 
 - saveAndFlush：调用此方法，更新的操作保存在内存中，并刷新到DB。它其实是save + flush的组合使用。
+
+但是这个不是绝对的，比如一个Entity的主键id使用 @GeneratedValue(strategy = GenerationType.IDENTITY) 注解来标识，那么使用save方法后，也会导致马上刷新到DB中。
