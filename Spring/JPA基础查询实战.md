@@ -1,6 +1,6 @@
 # :sunrise: JPA从入门到放弃系列——JPA基础查询实战
 
-> 把每件一般的事做好显现不一般；把每件简单的事做好显现不简单；把每件平凡的事做好显现不平凡。
+> :pushpin: 把每件一般的事做好显现不一般；把每件简单的事做好显现不简单；把每件平凡的事做好显现不平凡。
 
 ## JPA自动建表
 
@@ -193,51 +193,9 @@ public List<User> fetchAllByName(String name) {
 根据名称模糊查询，不区分大小写
 
 ```java
-@Override
-public List<User> fetchAllByNameOrEmailLike(String name, String email) {
 
-    User user = new User();
-    user.setName(name);
-    user.setEmail(email);
-
-    ExampleMatcher exampleMatcher = ExampleMatcher.matchingAny()
-            .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
-            .withIgnoreCase();
-
-    return userRepository.findAll(Example.of(user, exampleMatcher));
-}
 ```
 
-## 实战5：动态查询
-
-利用JpaSpecificationExecutor接口提供的功能，可以很方便地实现动态查询。比如，我需要实现一个根据用户id、用户名称或邮箱查询用户信息的功能，如果这些条件为NULL则不作为条件进行查询，代码实现如下：
-
-```java
-@Override
-public List<User> searchUsersByCondition(Integer userId, String name, String email) {
-
-    return userRepository.findAll((root, criteriaQuery, criteriaBuilder) -> {
-
-        List<Predicate> predicates = new ArrayList<>();
-        if (Objects.nonNull(userId)) {
-            Predicate predicate = criteriaBuilder.equal(root.get("id"), userId);
-            predicates.add(predicate);
-        }
-
-        if (StringUtils.hasText(name)) {
-            Predicate predicate = criteriaBuilder.like(root.get("name"), "%" + name + "%");
-            predicates.add(predicate);
-        }
-
-        if (StringUtils.hasText(email)) {
-            Predicate predicate = criteriaBuilder.like(root.get("email"), "%" + email + "%");
-            predicates.add(predicate);
-        }
-
-        return criteriaQuery.where(predicates.toArray(new Predicate[0])).getRestriction();
-    });
-}
-```
 ## 扩展1：save vs saveAndFlush
 
 通常，Hibernate将持久状态保存在内存中。将此状态同步到基础DB的过程称为刷新。
@@ -247,7 +205,3 @@ public List<User> searchUsersByCondition(Integer userId, String name, String ema
 - saveAndFlush：调用此方法，更新的操作保存在内存中，并刷新到DB。它其实是save + flush的组合使用。
 
 但是这个不是绝对的，比如一个Entity的主键id使用 @GeneratedValue(strategy = GenerationType.IDENTITY) 注解来标识，那么使用save方法后，也会导致马上刷新到DB中。
-
-## 总结
-
-这部分仅仅是作为一个基础的实战，还不是最佳实践。

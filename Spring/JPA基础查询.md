@@ -1,6 +1,6 @@
 # :sunrise: JPA从入门到放弃系列——JPA基础查询
 
-> 博观而约取，厚积而薄发。——苏轼
+> :pushpin: 博观而约取，厚积而薄发。——苏轼
 
 ## Repository家族
 
@@ -75,60 +75,6 @@ public interface PagingAndSortingRepository<T, ID> extends CrudRepository<T, ID>
      * 根据分页和排序进行查询，并用Page对象封装。Pageable对象包含分页和Sort对象
      */
 	Page<T> findAll(Pageable pageable);
-}
-```
-
-Sort的用法如下：
-
-```java
-//可以输入多个Sort.Order对象，在进行多个值排序时有用
-public Sort(Sort.Order... orders);
-
-//和上面的方法一样，无非把多个参数换成了一个List
-public Sort(List orders);
-
-//当排序方向固定时，使用这个比较方便，第一个参数是排序方向，第二个开始就是排序的字段.
-public Sort(Sort.Direction direction, String... properties);
-
-//第一个参数是排序方向,还有一个方法第二个参数是list，原理相同
-public Sort(Direction direction, List<String> properties);
-```
-
-Pageable是一个接口，提供了分页一组方法的声明，如第几页，每页多少条记录，排序信息等, 提供以下功能：
-
-```java
-int getPageNumber();
-
-int getPageSize();
-
-int getOffset();
-
-Sort getSort();
-
-Pageable next();
-
-Pageable previousOrFirst();
-
-Pageable first();
-
-boolean hasPrevious();
-```
-
-PageRequest是Pageable的实现类，它提供三个构造方法：
-
-```java
-//这个构造方法构造出来的分页对象不具备排序功能
-public PageRequest(int page, int size) {
-    this(page, size, (Sort)null);
-}
-//Direction和properties用来做排序操作
-public PageRequest(int page, int size, Direction direction, String... properties) {
-    this(page, size, new Sort(direction, properties));
-}
-//此构造方法是自定义一个排序的操作
-public PageRequest(int page, int size, Sort sort) {
-    super(page, size);
-    this.sort = sort;
 }
 ```
 
@@ -380,56 +326,3 @@ public interface JpaRepository<T, ID> extends PagingAndSortingRepository<T, ID>,
 ```
 
 通过源码和CrudRepository相比较，它支持Query By Example，批量删除，提高删除效率，手动刷新数据库的更改方法，并将默认实现的查询结果变成了List。
-
-## JpaSpecificationExecutor接口
-
-JpaSpecificationExecutor是JPA 2.0提供的Criteria API，可以用于动态生成query。Spring DataJPA支持Criteria查询，可以很方便地使用，足以应付工作中的所有复杂查询的情况了，可以对JPA实现最大限度的扩展。它提供了以下功能：
-
-```java
-public interface JpaSpecificationExecutor<T> {
-	//根据Specification条件查询单个对象
-	Optional<T> findOne(@Nullable Specification<T> spec);
-	//根据Specification条件查询List结果
-	List<T> findAll(@Nullable Specification<T> spec);
-	//根据Specification条件，分页查询
-	Page<T> findAll(@Nullable Specification<T> spec, Pageable pageable);
-	//根据Specification条件，带排序地查询结果
-	List<T> findAll(@Nullable Specification<T> spec, Sort sort);
-	//根据Specification条件，查询数量
-	long count(@Nullable Specification<T> spec);
-}
-```
-
-这个接口基本是围绕着Specification接口来定义的，Specification接口定义如下：
-
-```java
-public interface Specification<T> extends Serializable {
-	static <T> Specification<T> not(@Nullable Specification<T> spec) {
-		return spec == null //
-				? (root, query, builder) -> null //
-				: (root, query, builder) -> builder.not(spec.toPredicate(root, query, builder));
-	}
-
-	static <T> Specification<T> where(@Nullable Specification<T> spec) {
-		return spec == null ? (root, query, builder) -> null : spec;
-	}
-
-	default Specification<T> and(@Nullable Specification<T> other) {
-		return SpecificationComposition.composed(this, other, CriteriaBuilder::and);
-	}
-
-	default Specification<T> or(@Nullable Specification<T> other) {
-		return SpecificationComposition.composed(this, other, CriteriaBuilder::or);
-	}
-
-	@Nullable
-	Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder);
-```
-
-利用Specification的and、or where、not方法可以讲多个Specification进行连接，对于复杂SQL可以这样写，代码不会变得臃肿。
-
-### Criteria介绍
-
-- Root: 代表了可以查询和操作的实体对象的根。如果将实体对象比喻成表名，那root里面就是这张表里面的字段。这不过是JPQL的实体字段而已。通过里面的Path<Y>get(StringattributeName)来获得我们操作的字段。
-- CriteriaQuery: 代表一个specific的顶层查询对象，它包含着查询的各个部分，比如：select、from、where、group by、order by等。
-- CriteriaBuilder: 用来构建CritiaQuery的构建器对象，其实就相当于条件或者是条件组合，以谓语即Predicate的形式返回。
