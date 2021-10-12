@@ -17,7 +17,8 @@
 
 > [!attention]
 >
-> - JPA Criteria Query
+> - JPA
+> - 原型设计模式
 > - 反射
 > - 注解
 > - 内部类
