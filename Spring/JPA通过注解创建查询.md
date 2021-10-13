@@ -8,7 +8,6 @@
 
 - @Query
 - @Param
-- @Nullable
 - @Modifying
 - @QueryHints
 - @Procedure
@@ -39,5 +38,34 @@ public @interface Query {
 }
 ```
 
-### Query使用案例
+### 注意事项
+
+> 使用JPQL查询有一个好处，就是启动的时候知道语法正确与否
+
+- 使用like查询，需要手动写上%关键字
+
+```java
+@Query(value = "select d from Department d where d.name like %?1")
+List<Department> listByNameLike(String name);
+```
+
+- 使用原生SQL，不支持直接使用Sort来排序，需要手动将排序参数拼接到SQL中。分页也是如此
+
+```java
+@Query(value = "select * from department order by ?1", nativeQuery = true)
+List<Department> listAllAfterSortBy(String sortField);
+```
+
+- 使用JPQL,可以直接使用Sort、Pageable来进行分页和排序
+
+## @Param
+
+默认情况下，参数是通过顺序绑定在查询语句上的。这使得查询方法对参数位置的重构容易出错。为了解决这个问题，你可以使用@ Param注解指定方法参数的具体名称，通过绑定的参数名字做查询条件。
+
+举个栗子：
+
+```java
+@Query(value = "select d from Department d where d.id = :id")
+Department getByDepartmentId(@Param("id") Integer id);
+```
 
