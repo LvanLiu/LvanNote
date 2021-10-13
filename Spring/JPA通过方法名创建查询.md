@@ -1,4 +1,4 @@
-# :sunrise: JPA从入门到放弃系列——JPA定义查询方法
+# :sunrise: JPA从入门到放弃系列——JPA通过方法名创建查询
 
 > :pushpin: 千里之行，始于足下。不积跬步，无以致千里。 ——荀子《劝学篇》
 
@@ -32,21 +32,6 @@ JPA直接的关键字，可以参考[Query Creation](https://docs.spring.io/spri
 ### Projections对查询结果的扩展
 
 Spring JPA对Projections扩展的支持是非常好的。从字面意思上理解就是映射，指的是和DB查询结果的字段映射关系。一般情况下，返回的字段和DB查询结果的字段是一一对应的，但有的时候，我们需要返回一些指定的字段，不需要全部返回，或者只返回一些复合型的字段，还要自己写逻辑。Spring Data正是考虑到了这一点，允许对专用返回类型进行建模，以便我们有更多的选择，将部分字段显示成视图对象。
-
-## 通过注解创建查询方法
-
-声明式注解来创建查询方法，需要了解以下几个注解：
-
-- @Query
-- @Param
-- @Nullable
-- @Modifying
-- @QueryHints
-- @Procedure
-
-### @Query
-
-
 
 ### 实战
 

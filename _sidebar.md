@@ -34,7 +34,8 @@
     - [JPA快速入门](Spring/JPA快速入门.md)
     - [JPA基础查询](Spring/JPA基础查询.md)
     - [JPA基础查询实战](Spring/JPA基础查询实战.md)
-    - [JPA定义查询方法](Spring/JPA定义查询方法.md)
+    - [JPA通过方法名创建查询](Spring/JPA通过方法名创建查询.md)
+    - [JPA通过注解创建查询](Spring/JPA通过注解创建查询.md)
 
 - :palm_tree: **微服务**
   - 配置中心
