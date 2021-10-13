@@ -10,7 +10,6 @@
 - @Param
 - @Modifying
 - @QueryHints
-- @Procedure
 
 ## @Query
 
@@ -69,3 +68,25 @@ List<Department> listAllAfterSortBy(String sortField);
 Department getByDepartmentId(@Param("id") Integer id);
 ```
 
+## @Modifying
+
+当我们需要自定义更新或者插入SQL时，那就要使用@Modifying和@Query注解来完成来了，先看下@Modifying的源码：
+
+```java
+public @interface Modifying {
+
+	boolean flushAutomatically() default false;
+	boolean clearAutomatically() default false;
+}
+```
+
+通过源码，可以看出Modifying提供了两种策略，默认为false，它们的作用是：
+
+- clearAutomatically: 如果配置了一级缓存，并且我们在同一个接口更新了对象，接着查询这个对象，如果该参数为false, 那么查询到的这个对象就是没有更新前的一个状态，为了解决这个问题，就需要将clearAutomatically设置为true，相当于清除缓存，那么下次查询就会从数据库去查询。
+- flushAutomatically： 如果清除缓存前，更新entity还没刷新到数据库中，为了避免配置clearAutomatically为true时导致缓存丢失，需要配置flushAutomatically为true，保证将更新的entity刷新到数据库中。
+
+使用案例：
+
+```java
+
+```
