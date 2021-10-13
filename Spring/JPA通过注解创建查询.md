@@ -9,7 +9,7 @@
 - @Query
 - @Param
 - @Modifying
-- @QueryHints
+- @NamedQueries
 
 ## @Query
 
