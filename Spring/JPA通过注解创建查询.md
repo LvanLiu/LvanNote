@@ -88,5 +88,7 @@ public @interface Modifying {
 使用案例：
 
 ```java
-
+@Modifying(clearAutomatically = true, flushAutomatically = true)
+@Query(value = "update Department d set d.name = :name where d.id = :id")
+void update(@Param("id") Integer id, @Param("name") String name);
 ```
