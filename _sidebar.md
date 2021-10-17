@@ -36,6 +36,7 @@
     - [JPA基础查询实战](Spring/JPA基础查询实战.md)
     - [JPA通过方法名创建查询](Spring/JPA通过方法名创建查询.md)
     - [JPA通过注解创建查询](Spring/JPA通过注解创建查询.md)
+    - [JPA常用注解详解](Spring/JPA常用注解详解.md)
 
 - :palm_tree: **微服务**
   - 配置中心
