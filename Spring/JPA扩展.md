@@ -6,6 +6,8 @@
 
 ## JPA缓存介绍
 
+说明JPA的延迟加载机制，以findById 以及 getById进行说明。
+
 ## Auditing及其事件介绍
 
 ## @Version乐观锁
