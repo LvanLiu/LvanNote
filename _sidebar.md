@@ -31,8 +31,9 @@
 
 - :sunrise: spring
   - JPA从入门到放弃
-    - [初识JPA](Spring/初识JPA.md)
-    - [JPA快速入门](Spring/JPA快速入门.md)
+    - [JPA快速入门](Spring/JPA从入门到放弃系列/JPA快速入门.md)
+    - [JPA基础查询](Spring/JPA从入门到放弃系列/JPA基础查询.md)
+  - 草稿版
     - [JPA基础查询](Spring/JPA基础查询.md)
     - [JPA基础查询实战](Spring/JPA基础查询实战.md)
     - [JPA通过方法名创建查询](Spring/JPA通过方法名创建查询.md)

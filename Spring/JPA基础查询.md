@@ -81,17 +81,22 @@ public interface PagingAndSortingRepository<T, ID> extends CrudRepository<T, ID>
 Sort的用法如下：
 
 ```java
-//可以输入多个Sort.Order对象，在进行多个值排序时有用
-public Sort(Sort.Order... orders);
+//单参数排序
+//利用Sort的Direction来实现
+Sort sort = Sort.by(Sort.Direction.DESC, "xx");
+//利用Sort的Order来实现
+Sort sort = Sort.by(Sort.Order.desc("xxx"));
 
-//和上面的方法一样，无非把多个参数换成了一个List
-public Sort(List orders);
+//多参数排序
+//适用于参数不同的排序
+Sort sort = Sort.by(Sort.Order.desc("xxx"), Sort.Order.desc("xxx"));
 
-//当排序方向固定时，使用这个比较方便，第一个参数是排序方向，第二个开始就是排序的字段.
-public Sort(Sort.Direction direction, String... properties);
+//这种更直观
+List<Sort.Order> orders = Sort.by(Sort.Order.desc("xxx")).and(Sort.Order.desc("xxx")).toList();
+Sort sort = Sort.by(orders);
 
-//第一个参数是排序方向,还有一个方法第二个参数是list，原理相同
-public Sort(Direction direction, List<String> properties);
+//适用于多个参数都是同一种排序
+Sort sort = Sort.by(Sort.Direction.DESC, "xxx", "xxx");
 ```
 
 Pageable是一个接口，提供了分页一组方法的声明，如第几页，每页多少条记录，排序信息等, 提供以下功能：
@@ -114,22 +119,15 @@ Pageable first();
 boolean hasPrevious();
 ```
 
-PageRequest是Pageable的实现类，它提供三个构造方法：
+PageRequest是Pageable的实现类，用法如下：
 
 ```java
-//这个构造方法构造出来的分页对象不具备排序功能
-public PageRequest(int page, int size) {
-    this(page, size, (Sort)null);
-}
-//Direction和properties用来做排序操作
-public PageRequest(int page, int size, Direction direction, String... properties) {
-    this(page, size, new Sort(direction, properties));
-}
-//此构造方法是自定义一个排序的操作
-public PageRequest(int page, int size, Sort sort) {
-    super(page, size);
-    this.sort = sort;
-}
+//通过PageRequest.of快速构建，pageNum从0开始。
+PageRequest pageRequest = PageRequest.of(pageNum, pageSize);
+
+//排序以及分页
+Sort sort = Sort.by(Sort.Direction.DESC, "xx");
+PageRequest pageRequest = PageRequest.of(pageNum, pageSize，sort);
 ```
 
 ## Example接口
