@@ -33,12 +33,9 @@
   - JPA从入门到放弃
     - [JPA快速入门](Spring/JPA从入门到放弃系列/JPA快速入门.md)
     - [JPA基础查询](Spring/JPA从入门到放弃系列/JPA基础查询.md)
-  - 草稿版
-    - [JPA基础查询](Spring/JPA基础查询.md)
-    - [JPA基础查询实战](Spring/JPA基础查询实战.md)
-    - [JPA通过方法名创建查询](Spring/JPA通过方法名创建查询.md)
-    - [JPA通过注解创建查询](Spring/JPA通过注解创建查询.md)
-    - [JPA常用注解详解](Spring/JPA常用注解详解.md)
+    - [JPA自定义查询](Spring/JPA从入门到放弃系列/JPA自定义查询.md)
+    - [JPA注解详解](Spring/JPA从入门到放弃系列/JPA注解详解.md)
+    - [JPA高级用法与实战](Spring/JPA从入门到放弃系列/JPA高级用法与实战.md)
 
 - :palm_tree: **微服务**
   - 配置中心

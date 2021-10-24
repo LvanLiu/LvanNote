@@ -469,3 +469,6 @@ public interface JpaSpecificationExecutor<T> {
 - <font color=#42b983>CriteriaQuery:</font> 代表一个 specific 的顶层查询对象，它包含着查询的各个部分，比如：select、from、where、group by、order by等。
 - <font color=#42b983>CriteriaBuilder:</font> 用来构建 CritiaQuery 的构建器对象，其实就相当于条件或者是条件组合，以谓语即 Predicate 的形式返回。
 
+> JpaSpecificationExecutor 适用于复杂查询、动态查询场景
+
+> [JpaSpecificationExecutor Demo](https://github.com/LvanLiu/spring-boot-demo/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/JpaSpecificationExecutorTest.java)

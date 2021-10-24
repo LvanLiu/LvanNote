@@ -1,23 +1,60 @@
-# :sunrise: JPA从入门到放弃系列——JPA常用注解详解
+# :sunrise:JPA注解详解
 
 > 工作的最重要的动力是工作中的乐趣，是工作获得结果时的乐趣以及对这个结果的社会价值的认识。——爱因斯坦
 
-## javax.persistence介绍
+## 持久化上下文
 
-javax.persistence注意包括以下模块：
+持久化上下文就是一个被命名的实体（entity）的 session。如果检索的对象已存在于持久性上下文中，则返回持久性上下文中的实体对象，而不从数据库中进行查询。
 
-![img.png](../img/spring/JPA类层次结构图.png)
+持久化上下文特点：
 
-模块 | 说明 |
----------|----------
- EntityManagerFactory | 一个EntityManager的工厂类，创建并管理多个EntityManager实例
- EntityManager | 一个接口，管理持久化操作的对象，工作原理类似工厂的查询实例
- Entity | 实体是持久化对象，是存储在数据库中的记录
- EntityTransaction | 与EntityManager是一对一的关系，对于每一个EntityMnager，操作是由EntityTransaction类维护的
- Persistence | 这个类包含静态方法来获取EntityMangerFactory实例
- Query | 该接口由每个JPA供应商实现，能够获得符合标准的关系对象
+- 持久化上下文的生命周期与物理事务一致
+- 持久化上下文提供自动脏检查
+- <font color=#42b983>持久化上下文是一级缓存</font>
 
-上述的类和接口用于存储实体到数据库的一个记录，帮助程序员通过减少自己编写的代码将数据存储到数据库中，使他们能够专注于更重要的业务活动代码，如数据库表映射的类编写代码。
+> [!tip]
+> **自动脏检查**
+>
+> 在事务提交的时候，JPA会执行一个脏检查机制，会检查持久化上下文中的对象状态和数据库中的状态是否一致，如果不一致，就会根据持久化上下文中的状态对数据库进行更新。（该操作只会在数据库的事务提交的时候才会执行，如果事务回滚，则不会执行）。
+
+## JPA生命周期
+
+Entity 的生命周期有以下几个状态：
+
+- transient：瞬态
+- managed：受管
+- removed：删除
+- detached：分离
+
+Entity 的状态有持久化上下文管理，状态切换图如下：
+
+<img src="../../img/spring/jpa-states.png" width="70%"/>
+
+### transient
+
+新实例化的实体对象的生命状态为 transient ，在这种状态下，对象还没有与持久化上下文关联，不表示任何数据库记录。
+
+> 可以将这个状态的实体对象当作普通的 Java bean
+
+### managed
+
+一旦实际对象与持久化上下文关联上，那么它就处于 managed 态，这就意味着持久化代码将检测对象的任何更改，并在刷新持久化上下文时，根据变更的生成生成 update/insert 语句，将更新提交到数据库中。
+
+### detached
+
+当一个处于 managed 状态的实体对象，脱离了持久化上下文的关联，那么它就是处于 detached 状态。一般在持久化上下文关闭时，所获得的实体对象都是处于 detached 状态，也可以手动将实体对象转换为该状态。
+
+当然，当对 detached 状态的实体对象进行 update 操作时，该实体对象又与持久化上下文关联上了，变为 managed 状态。
+
+### removed
+
+当一个处于 managed 状态的实体对象被删除时，该操作并不会立即删除该实体对应的数据库中的记录，改变的仅仅是该实体的状态，转换为 removed 态。
+
+在持久化上下文刷新时，再根据 removed 态的对象生成 delete sql 语句。
+
+### 小总结
+
+熟悉 JPA Entity 的生命周期与持久化上下文，当我们进行 CRUD 操作的时候，可以清晰知道对象的状态，哪些会被刷新，哪些不会被刷新，这会让我们少踩很多坑，也对数据的持久化做到心中有数。
 
 ## 基础注解
 
@@ -60,12 +97,11 @@ public @interface Table {
 }
 ```
 
-### @Entity vs @Table
-
-@Entity与@Table中都存在name属性，它们之间有什么区别？
-
-- @Entity中的name用于JPQL查询
-- @Table中的name与实际表名对应
+> [!attention]
+> @Entity 与 @Table 中都存在 name 属性，它们之间有什么区别？
+>
+> - @Entity 中的 name 用于 JPQL 查询
+> - @Table 中的 name 与实际表名对应
 
 ### @Id
 
@@ -117,6 +153,8 @@ public enum GenerationType {
     AUTO
 }
 ```
+
+其中，当我们使用 GenerationType.TABLE 策略时，JPA 默认会帮我们创建一个 hibernate_sequences 表（当然，需要开启启动时创建表配置）, 如果我们需要自定义生成主键的表，则可以配合 @TableGenerator 注解来使用。
 
 ### @Basic
 
@@ -421,156 +459,83 @@ public @interface ManyToMany {
 
 ```
 
-### 综合实例
-
-以下只演示ManyToMany注解的使用，其他的关联注解使用都差不多，不一一列举。
-
-```java
-@DynamicInsert
-@DynamicUpdate
-@Getter
-@Setter
-@Entity
-@Table
-public class Department {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    private Integer id;
-
-    private Integer parentId;
-
-    @Column(length = 16)
-    private String name;
-
-    private Integer sort;
-
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "department_user_mapping",
-            joinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private List<User> users;
-}
-```
-
-其中，r如果在properties中配置了 spring.jpa.generate-ddl=true 的话，JPA会自动生成department_user_mapping表，并生成关联表的外键。如果没有，就需要手动创建关联表了。
-
-### @EntityGraph
+### 扩展：N+1问题
 
 当使用@ManyToMany、@ManyToOne、@OneToMany、@OneToOne关联关系的时候，SQL真正执行的时候是由一条主表查询和N条子表查询组成的。这种查询效率一般比较低下，比如子对象有N个就会执行N+1条SQL。
 
-可以采用Left join或inner join来提高效率，使用JPQL或者Criteria API也可以做到，但SpringData JPA为了简单地提高查询率，引入了EntityGraph的概念，可以解决N+1条SQL的问题。
+可以采用以下方法进行优化：
 
-JPA 2.1推出来的@EntityGraph、@NamedEntityGraph用来提高查询效率，很好地解决了N+1条SQL的问题。两者需要配合起来使用，缺一不可。@NamedEntityGraph配置在@Entity上面，而@EntityGraph配置在Repository的查询方法上面。我们来看一下实例。
+- 减少 N+1 SQL 的条数
+- 使用 @Fetch 来改变获取数据策略
+- 使用 @EntityGraph
 
-举了栗子：
+#### 减少N+1的SQL条数
 
-1. 先在Entity里面定义@NamedEntityGraph，其他都不变。其中，@NamedAttributeNode可以有多个，也可以有一个。
+通过在 application.properties 中可以新增以下配置：
+
+```javascript
+spring.jpa.properties.hibernate.default_batch_fetch_size=2
+```
+
+或者，也可以使用 @BatchSize 注解， 如：
 
 ```java
-@NamedEntityGraph(name = "Department.users", attributeNodes = {
-        @NamedAttributeNode("users")
-})
-@DynamicInsert
-@DynamicUpdate
-@Getter
-@Setter
-@Entity
-@Table
-public class Department {
+@OneToMany(fetch = FetchType.EAGER)
+@JoinTable(
+        name = "department_user_mapping",
+        joinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+@BatchSize(size = 2)
+private List<User> users;
+```
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    private Integer id;
+关于 size 的值配置，可以根据实际数据量来评估，不必设置的过高。
 
-    private Integer parentId;
+> @BatchSize 的使用具有局限性，不能作用于 @ManyToOne 和 @OneToOne 的关联关系上，那样代码是不起作用的。
 
-    @Column(length = 16)
-    private String name;
+#### 使用 @Fetch 来改变获取数据策略
 
-    private Integer sort;
+Hibernate 提供了一个 @Fetch 注解，用来改变获取数据的策略。API如下：
 
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "department_user_mapping",
-            joinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private List<User> users;
+```java
+// fetch注解只能用在方法和字段上面
+@Target({ElementType.METHOD, ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Fetch {
+    //注解里面，只有一个属性获取数据的模式
+    FetchMode value();
 }
-
+//其中FetchMode的值有如下几种：
+public enum FetchMode {
+    //默认模式，就是会有N+1 sql的问题；
+    SELECT,
+    //通过join的模式，用一个sql把主体数据和关联关系数据一口气查出来
+    JOIN,
+    //通过子查询的模式，查询关联关系的数据
+    SUBSELECT
+}
 ```
 
-2. 只需要在查询方法上加@EntityGraph注解即可，其中value就是@NamedEntityGraph中的Name
+其中，它们之间都有一些限制：
 
-```java
-@EntityGraph(value ="Department.users")
-@Query(value = "select d from Department d where d.name like %?1")
-List<Department> listByNameLike(String name);
-```
+- <font color=#42b983>FetchMode.SELECT：</font> N+1 SQl问题
+- <font color=#42b983>FetchMode.JOIN：</font> 只支持类似 findById(id) 的方法，只能根据 ID 查询才有效果
+- <font color=#42b983>FetchMode.SUBSELECT：</font>虽然不限使用方式，但是只支持 OneToMany 的关联关系
 
-3. 解决前 vs 解决后
+#### @EntityGraph
 
-解决前，真正关联查询的SQL：
+JPA 2.1推出来的@EntityGraph、@NamedEntityGraph用来提高查询效率，很好地解决了N+1条SQL的问题。两者需要配合起来使用，缺一不可。@NamedEntityGraph配置在@Entity上面，而@EntityGraph配置在Repository的查询方法上面。
 
-```MySQL
-//主查询
-select department0_.id          as id1_0_,
-       department0_.create_date as create_d2_0_,
-       department0_.name        as name3_0_,
-       department0_.parent_id   as parent_i4_0_,
-       department0_.sort        as sort5_0_
-from department department0_
-where department0_.name like ?
+____
 
-//子查询，子表若包含N条数据，那么这条语句就会有N条
-select users0_.department_id as departme1_1_0_,
-       users0_.user_id       as user_id2_1_0_,
-       user1_.id             as id1_2_1_,
-       user1_.age            as age2_2_1_,
-       user1_.date           as date3_2_1_,
-       user1_.email          as email4_2_1_,
-       user1_.name           as name5_2_1_
-from department_user_mapping users0_
-         inner join user user1_ on users0_.user_id = user1_.id
-where users0_.department_id = ?
+> [!attention]
+>
+> - 所有的注解要么全配置在字段上，要么全配置在get方法上，不能混用，混用就会启动不起来，但是语法配置没有问题。
+> - 所有的关联都是支持单向关联和双向关联的，视具体业务场景而定。JSON序列化的时候使用双向注解会产生死循环，需要人为手动转化一次，或者使用@JsonIgnore。
+> - 在所有的关联查询中，表一般是不需要建立外键索引的。@mappedBy的使用需要注意。
+> - 级联删除比较危险，建议考虑清楚，或者完全掌握。
+> - 不同的关联关系的配置，@JoinClumn里面的name、referencedColumnName代表的意思是不一样的，很容易弄混，可以根据打印出来的SQL做调整。
+> - 当配置这些关联关系的时候建议大家直接在表上面，把外键建好，然后通过后面我们介绍的开发工具直接生成，这样可以减少自己调试的时间。
 
-```
 
-解决后的SQL：
-
-```MySQL
-select department0_.id          as id1_0_0_,
-       user2_.id                as id1_2_1_,
-       department0_.create_date as create_d2_0_0_,
-       department0_.name        as name3_0_0_,
-       department0_.parent_id   as parent_i4_0_0_,
-       department0_.sort        as sort5_0_0_,
-       user2_.age               as age2_2_1_,
-       user2_.date              as date3_2_1_,
-       user2_.email             as email4_2_1_,
-       user2_.name              as name5_2_1_,
-       users1_.department_id    as departme1_1_0__,
-       users1_.user_id          as user_id2_1_0__
-from department department0_
-         left outer join department_user_mapping users1_ on department0_.id = users1_.department_id
-         left outer join user user2_ on users1_.user_id = user2_.id
-where department0_.name like ?
-```
-
-由打印的SQL可以看出，使用了EntityGraph注解，它使用了left join来优化了关联的查询。
-
-### 那些忘不了坑
-
-- 所有的注解要么全配置在字段上，要么全配置在get方法上，不能混用，混用就会启动不起来，但是语法配置没有问题。
-- 所有的关联都是支持单向关联和双向关联的，视具体业务场景而定。JSON序列化的时候使用双向注解会产生死循环，需要人为手动转化一次，或者使用@JsonIgnore。
-- 在所有的关联查询中，表一般是不需要建立外键索引的。@mappedBy的使用需要注意。
-- 级联删除比较危险，建议考虑清楚，或者完全掌握。
-- 不同的关联关系的配置，@JoinClumn里面的name、referencedColumnName代表的意思是不一样的，很容易弄混，可以根据打印出来的SQL做调整。
-- 当配置这些关联关系的时候建议大家直接在表上面，把外键建好，然后通过后面我们介绍的开发工具直接生成，这样可以减少自己调试的时间。
+> [综合实例](https://github.com/LvanLiu/spring-boot-demo/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/MappingTableQueryTest.java)
