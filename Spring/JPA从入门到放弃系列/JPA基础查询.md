@@ -37,7 +37,7 @@ Spring 在做动态代理的时候，只要是它的子类或者实现类，再�
 
 **类的结构关系如下：**
 
-<img src="../../img/spring/Repository.png" width="60%"/>
+![img.png](../../img/spring/Repository.png)
 
 ## CrudRepository详解
 

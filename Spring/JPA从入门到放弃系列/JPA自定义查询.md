@@ -23,7 +23,7 @@
 
 带查询功能的方法名由查询策略（关键字）+ 查询字段 + 一些限制性条件组成，具有语义清晰、功能完整的特性，我们实际工作中 80% 的 API 查询都可以简单实现。
 
-<img src="../../img/spring/DQM.jpg" width="60%"/>
+![](../../img/spring/DQM.jpg)
 
 - 方法名的表达式通常是实体属性连接运算符的组合，如 And、or、Between、LessThan、GreaterThan、Like 等属性连接运算表达式。
 - IgnoreCase 可以针对单个属性（如 findByLastnameIgnoreCase(…)），也可以针对查询条件里面所有的实体属性忽略大小写（所有属性必须在 String 情况下，如 findByLastnameAndFirstnameAllIgnoreCase(…)）。
@@ -35,7 +35,7 @@
 
 JPA 支持以下返回值：
 
-<img src="../../img/spring/jpa-return.jpg" width="60%"/>
+![](../../img/spring/jpa-return.jpg)
 
 #### 限制查询结果
 

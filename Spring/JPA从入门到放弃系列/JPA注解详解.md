@@ -28,7 +28,7 @@ Entity 的生命周期有以下几个状态：
 
 Entity 的状态有持久化上下文管理，状态切换图如下：
 
-<img src="../../img/spring/jpa-states.png" width="70%"/>
+![](../../img/spring/jpa-states.png)
 
 ### transient
 
