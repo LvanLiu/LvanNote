@@ -92,7 +92,7 @@ key | Hibernate | MyBatis
 
 - 数据源配置
 
-```javascript
+```properties
 spring.datasource.name=jpa-demo
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.datasource.url=jdbc:mysql://localhost:3306/demo
@@ -104,7 +104,7 @@ spring.datasource.password=guest
 
 创建用户表，SQL如下：
 
-```mysql
+```sql
 create table user
 (
     id    int auto_increment
@@ -163,7 +163,7 @@ class UserCrudRepositoryTest {
 
 JPA支持在项目启动的时候根据Entity来自动生成建表语句，需求开启此功能，需要在application.properties配置以下参数：
 
-```javascript
+```properties
 spring.jpa.generate-ddl=true
 ```
 
@@ -173,6 +173,6 @@ spring.jpa.generate-ddl=true
 
 JPA默认是不打印SQL语句的，在开发过程中，我们一般都需要打印SQL语句，以便快速定位问题，需要在application.properties配置以下参数：
 
-```javascript
+```properties
 spring.jpa.show-sql=true
 ```

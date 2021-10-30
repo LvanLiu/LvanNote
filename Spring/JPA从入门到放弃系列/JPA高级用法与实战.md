@@ -81,7 +81,7 @@ Java Persistence API底层提供了以下注解作为事件回调：
 
 - <font color=#42b983>悲观锁</font>
 
-```mysql
+```sql
 select * from user where id = 1 for update
 update user set name = 'test' where id = 1
 ```
@@ -90,7 +90,7 @@ update user set name = 'test' where id = 1
 
 - <font color=#42b983>乐观锁</font>
 
-```mysql
+```sql
 update user set name = 'test', version = version + 1 where id = 1 and version = 1
 ```
 
