@@ -51,5 +51,6 @@ module.exports = {
         createYear: 2021,
         copyrightInfo:
             'Lvan Liu | <a href="https://github.com/LvanLiu/LvanNote/blob/add-license-1/LICENSE" target="_blank">GUN License</a>',
-    }
+    },
+    bodyBgImg: ['/img/bg.jpg', '/img/bg1.jpg'],
 }
