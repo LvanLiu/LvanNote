@@ -18,3 +18,5 @@ urls.txt
 .DS_Store
 
 .idea
+
+workspace.code-workspace
