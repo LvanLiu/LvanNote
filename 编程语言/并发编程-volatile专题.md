@@ -1,4 +1,4 @@
-# :cyclone:volatile专题
+# volatile专题
 
 > 哪里有阴影，哪里就有光. -雨果
 

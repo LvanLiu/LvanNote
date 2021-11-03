@@ -1,8 +1,8 @@
-# :two: **深入理解序列化——Java序列化**
+# 深入理解序列化——Java序列化
 
 > :pushpin: 一个不注意小事情的人，永远不会成功大事业。——戴尔·卡耐基
 
-## **Java序列化的实现方式**
+## Java序列化的实现方式
 
 实现Java序列化有三种方式：
 
@@ -35,7 +35,7 @@ public class Person implements Externalizable {
 }
 ```
 
-## **Java序列化的核心类**
+## Java序列化的核心类
 
 ### Serializable
 
@@ -63,9 +63,9 @@ ObjectOutputStream支持缓冲功能，序列化的时候，都是先把待写�
 
 java.io.ObjectInputStream是实现Java反序列化的关键类，和ObjectOutputStream是对应的.
 
-## **Java序列化的高级特性**
+## Java序列化的高级特性
 
-### **transient关键字**
+### transient关键字
 
 Java序列化可以通过transient关键字来控制字段不被序列化。
 
@@ -101,11 +101,11 @@ Java序列化机制在反序列化时支持对数据进行校验。这是因为J
 
 使用数据校验特性，需要让自定义的序列化类实现java.io.ObjectInputValidation接口，通过调用回调函数validateObject来实现数据验证。
 
-## **Java序列化的安全性**
+## Java序列化的安全性
 
 Java序列化后的数据是明文形式，而且数据的组成格式有明确的规律。当这些数据脱离Java安全体系存在磁盘中时，可以通过二进制数编辑工具查看，甚至修改。如果这些数据注入了病毒，应用程序的表现行为将无法预计。为了保障数据的安全性，引入SealedObject和SignedObject对序列化数据进行加密。
 
-## **Java序列化编程规范**
+## Java序列化编程规范
 
 ### 谨慎地实现Serializable接口
 
@@ -152,4 +152,3 @@ readObject相当于另一个共有的构造函数，入参为字节流。由于�
 - 通过构造函数为final变量赋值
 - 通过方法返回值为final变量赋值
 - final修饰的属性不是基本类型
-
