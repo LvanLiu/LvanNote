@@ -1,6 +1,3 @@
-* 编程语言
-  * [Java基础](编程语言/Java-base-guide.md)
-  * [并发编程](编程语言/concurrent-guide.md)
+* [编程语言](编程语言/guide.md)
 
-* 计算机基础
-  * []
+* [计算机基础](计算机基础/guide.md)
