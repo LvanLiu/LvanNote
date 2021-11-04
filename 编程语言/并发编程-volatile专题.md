@@ -90,7 +90,4 @@ instance = new LazySingleton();
 Lock前缀指令导致在执行指令期间，声言处理器的LOCK#信号，LOCK#信号确保在声言该信号期间，处理器可以独占任何共享内存，后面可以通过缓存一致性协议，就可以保证了数据的可见性了。
 
 ## volatile内存语义
-
-
-
 ## volatile与原子性问题

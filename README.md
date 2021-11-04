@@ -1,6 +1,4 @@
-[![Stars](https://img.shields.io/github/stars/LvanLiu/LvanNote?style=plastic)](https://github.com/LvanLiu/LvanNote)
-[![Forks](https://img.shields.io/github/forks/LvanLiu/LvanNote?style=plastic)](https://github.com/LvanLiu/LvanNote)
-[![](https://img.shields.io/badge/Author-Lvan-orange.svg)](https://gitee.com/lvanliu/lvan-note)
+# 📖LvanNote
 
 ## 💻计算机系统
 
@@ -39,7 +37,7 @@
 - [软件设计的原则](程序设计/软件设计原则.md)
 - [软件设计技巧](程序设计/软件设计技巧.md)
 
-## 🍉写代码的修养
+## 📐写代码的修养
 
 - [有意义的命名](程序设计/有意义的命名.md)
 - [函数](程序设计/函数.md)
