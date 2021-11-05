@@ -1,4 +1,4 @@
-![](Lvan-Note.png ':size=30%')
+![logo](Lvan-Note.png ':size=10%')
 
 ## 💻计算机系统
 
