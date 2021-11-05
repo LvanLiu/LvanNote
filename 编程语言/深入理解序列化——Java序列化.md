@@ -6,7 +6,7 @@
 
 实现Java序列化有三种方式：
 
-- 自定义类实现`Serializable`，不包含`readObject`和`writeObjec`t方法，使用默认的序列化和反序列化方式进行数据写入和读取操作。
+- 自定义类实现`Serializable`，不包含`readObject`和`writeObject`方法，使用默认的序列化和反序列化方式进行数据写入和读取操作。
 
 ```java
 public class Person implements Serializable
