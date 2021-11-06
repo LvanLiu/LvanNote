@@ -116,7 +116,7 @@ create table user
 
 ### 编写代码
 
-1. 创建一个Entity，代码如下：
+1. 创建一个`Entity`，代码如下：
 
 ```java
 @Getter
@@ -132,7 +132,7 @@ public class User {
 }
 ```
 
-2. 继承CrudRepository接口，获得增删改查能力，代码如下：
+2. 继承`CrudRepository`接口，获得增删改查能力，代码如下：
 
 ```java
 @Repository
@@ -142,7 +142,7 @@ public interface UserCrudRepository extends CrudRepository<User, Integer> {
 
 3. 编写测试类
 
-可以通过编写测试来测试CrudRepository的功能。
+可以通过编写测试来测试`CrudRepository`的功能。
 
 ```java
 @SpringBootTest
@@ -161,13 +161,13 @@ class UserCrudRepositoryTest {
 
 ### 配置JPA自动生成建表语句
 
-JPA支持在项目启动的时候根据Entity来自动生成建表语句，需求开启此功能，需要在application.properties配置以下参数：
+JPA支持在项目启动的时候根据`Entity`来自动生成建表语句，需求开启此功能，需要在application.properties配置以下参数：
 
 ```properties
 spring.jpa.generate-ddl=true
 ```
 
-> 一般正式开发，都是自动手动建立SQL。
+!> 一般正式开发，都是自动手动建立SQL。
 
 ### 配置SQL语句打印
 
