@@ -4,7 +4,7 @@
 
 ## 持久化上下文
 
-持久化上下文就是一个被命名的实体（entity）的 session。如果检索的对象已存在于持久性上下文中，则返回持久性上下文中的实体对象，而不从数据库中进行查询。
+持久化上下文就是一个被命名的实体（`entity`）的 `session`。如果检索的对象已存在于持久性上下文中，则返回持久性上下文中的实体对象，而不从数据库中进行查询。
 
 持久化上下文特点：
 
@@ -12,8 +12,7 @@
 - 持久化上下文提供自动脏检查
 - <font color=#42b983>持久化上下文是一级缓存</font>
 
-> [!tip]
-> **自动脏检查**
+> [!tip|label:自动脏检查]
 >
 > 在事务提交的时候，JPA会执行一个脏检查机制，会检查持久化上下文中的对象状态和数据库中的状态是否一致，如果不一致，就会根据持久化上下文中的状态对数据库进行更新。（该操作只会在数据库的事务提交的时候才会执行，如果事务回滚，则不会执行）。
 
@@ -21,46 +20,46 @@
 
 Entity 的生命周期有以下几个状态：
 
-- transient：瞬态
-- managed：受管
-- removed：删除
-- detached：分离
+- <font color=#42b983>transient</font>：瞬态
+- <font color=#42b983>managed</font>：受管
+- <font color=#42b983>removed</font>：删除
+- <font color=#42b983>detached</font>：分离
 
 Entity 的状态有持久化上下文管理，状态切换图如下：
 
-![](../../img/spring/jpa-states.png)
+![](../../img/spring/jpa-states.png ':size=60%')
 
 ### transient
 
-新实例化的实体对象的生命状态为 transient ，在这种状态下，对象还没有与持久化上下文关联，不表示任何数据库记录。
+新实例化的实体对象的生命状态为 `transient` ，在这种状态下，对象还没有与持久化上下文关联，不表示任何数据库记录。
 
-> 可以将这个状态的实体对象当作普通的 Java bean
+!> 可以将这个状态的实体对象当作普通的 Java bean
 
 ### managed
 
-一旦实际对象与持久化上下文关联上，那么它就处于 managed 态，这就意味着持久化代码将检测对象的任何更改，并在刷新持久化上下文时，根据变更的生成生成 update/insert 语句，将更新提交到数据库中。
+一旦实际对象与持久化上下文关联上，那么它就处于 `managed` 态，这就意味着持久化代码将检测对象的任何更改，并在刷新持久化上下文时，根据变更的生成生成 `update`/`insert` 语句，将更新提交到数据库中。
 
 ### detached
 
-当一个处于 managed 状态的实体对象，脱离了持久化上下文的关联，那么它就是处于 detached 状态。一般在持久化上下文关闭时，所获得的实体对象都是处于 detached 状态，也可以手动将实体对象转换为该状态。
+当一个处于 `managed` 状态的实体对象，脱离了持久化上下文的关联，那么它就是处于 `detached` 状态。一般在持久化上下文关闭时，所获得的实体对象都是处于 `detached` 状态，也可以手动将实体对象转换为该状态。
 
-当然，当对 detached 状态的实体对象进行 update 操作时，该实体对象又与持久化上下文关联上了，变为 managed 状态。
+当然，当对 `detached` 状态的实体对象进行 `update` 操作时，该实体对象又与持久化上下文关联上了，变为 `managed` 状态。
 
 ### removed
 
-当一个处于 managed 状态的实体对象被删除时，该操作并不会立即删除该实体对应的数据库中的记录，改变的仅仅是该实体的状态，转换为 removed 态。
+当一个处于 `managed` 状态的实体对象被删除时，该操作并不会立即删除该实体对应的数据库中的记录，改变的仅仅是该实体的状态，转换为 `removed` 态。
 
-在持久化上下文刷新时，再根据 removed 态的对象生成 delete sql 语句。
+在持久化上下文刷新时，再根据 `removed` 态的对象生成 `delete sql` 语句。
 
-### 小总结
-
-熟悉 JPA Entity 的生命周期与持久化上下文，当我们进行 CRUD 操作的时候，可以清晰知道对象的状态，哪些会被刷新，哪些不会被刷新，这会让我们少踩很多坑，也对数据的持久化做到心中有数。
+> [!tip]
+>  
+> 熟悉 JPA Entity 的生命周期与持久化上下文，当我们进行 CRUD 操作的时候，可以清晰知道对象的状态，哪些会被刷新，哪些不会被刷新，这会让我们少踩很多坑，也对数据的持久化做到心中有数。
 
 ## 基础注解
 
 ### @Entity
 
-通过Entity的源码了解它的功能：
+通过`Entity`的源码了解它的功能：
 
 ```java
 public @interface Entity {
@@ -70,11 +69,11 @@ public @interface Entity {
 }
 ```
 
-@Entity定义对象将会成为被JPA管理的实体，将映射到指定的数据库表。
+`@Entity`定义对象将会成为被JPA管理的实体，将映射到指定的数据库表。
 
 ### @Table
 
-@Table用于指定数据库的表名，源码如下：
+`@Table`用于指定数据库的表名，源码如下：
 
 ```java
 @Target(TYPE) 
@@ -97,19 +96,18 @@ public @interface Table {
 }
 ```
 
-> [!attention]
-> @Entity 与 @Table 中都存在 name 属性，它们之间有什么区别？
+> [!attention|label: Entity name VS Table name]
 >
 > - @Entity 中的 name 用于 JPQL 查询
 > - @Table 中的 name 与实际表名对应
 
 ### @Id
 
-@Id定义属性为数据库的主键，一个实体里面必须有一个。
+`@Id`定义属性为数据库的主键，一个实体里面必须有一个。
 
 ### @IdClass
 
-@IdClass用于引入联合主键。源码如下：
+`@IdClass`用于引入联合主键。源码如下：
 
 ```java
 public @interface IdClass {
@@ -120,15 +118,15 @@ public @interface IdClass {
 
 作为联合主键的类，需要满足以下要求：
 
-- 必须实现Serializable接口
-- 必须有默认的public无参数的构造方法
-- 必须覆盖equals和hashCode方法。equals方法用于判断两个对象是否相同，EntityManger通过find方法来查找Entity时是根据equals的返回值来判断的
+- 必须实现`Serializable`接口
+- 必须有默认的`public`无参数的构造方法
+- 必须覆盖`equals`和`hashCode`方法。`equals`方法用于判断两个对象是否相同，`EntityManger`通过`find`方法来查找`Entity`时是根据`equals`的返回值来判断的
 
-> 扩展：[为什么重写了equals也要重写hashCode](https://juejin.cn/post/6844904005575901191)
+!> [为什么重写了equals也要重写hashCode](https://juejin.cn/post/6844904005575901191)
 
 ### @GeneratedValue
 
-@GeneratedValue为主键生成策略，它的源码如下：
+`@GeneratedValue`为主键生成策略，它的源码如下：
 
 ```java
 public @interface GeneratedValue {
@@ -139,7 +137,7 @@ public @interface GeneratedValue {
 }
 ```
 
-其中GenerationType提供了以下几种策略：
+其中`GenerationType`提供了以下几种策略：
 
 ```java
 public enum GenerationType {
@@ -154,11 +152,11 @@ public enum GenerationType {
 }
 ```
 
-其中，当我们使用 GenerationType.TABLE 策略时，JPA 默认会帮我们创建一个 hibernate_sequences 表（当然，需要开启启动时创建表配置）, 如果我们需要自定义生成主键的表，则可以配合 @TableGenerator 注解来使用。
+其中，当我们使用`GenerationType.TABLE` 策略时，JPA 默认会帮我们创建一个 `hibernate_sequences` 表（当然，需要开启启动时创建表配置）, 如果我们需要自定义生成主键的表，则可以配合 `@TableGenerator` 注解来使用。
 
 ### @Basic
 
-@Basic表示属性是到数据库表的字段的映射。如果实体的字段上没有任何注解，默认即为@Basic。源码如下:
+`@Basic`表示属性是到数据库表的字段的映射。如果实体的字段上没有任何注解，默认即为`@Basic`。源码如下:
 
 ```java
 public @interface Basic {
@@ -171,11 +169,11 @@ public @interface Basic {
 
 ### @Transient
 
-@Transient表示该属性并非一个到数据库表的字段的映射，表示非持久化属性，与@Basic作用相反。JPA映射数据库的时候忽略它。
+`@Transient`表示该属性并非一个到数据库表的字段的映射，表示非持久化属性，与`@Basic`作用相反。JPA映射数据库的时候忽略它。
 
 ### @Column
 
-@Column定义该属性对应数据库中的列名。源码如下：
+`@Column定`义该属性对应数据库中的列名。源码如下：
 
 ```java
 public @interface Column {
@@ -213,7 +211,7 @@ public @interface Column {
 
 ### @Temporal
 
-@Temporal用来设置Date类型的属性映射到对应精度的字段。源码如下：
+`@Temporal`用来设置`Date`类型的属性映射到对应精度的字段。源码如下：
 
 ```java
 public @interface Temporal {
@@ -222,7 +220,7 @@ public @interface Temporal {
 }
 ```
 
-那么TemporalType有以下几种类型：
+那么`TemporalType`有以下几种类型：
 
 ```java
 public enum TemporalType {
@@ -246,11 +244,11 @@ public enum TemporalType {
 private Date createDate;
 ```
 
-如果createDate不使用@Temporal, 默认的createDate则包含日期和时间
+如果`createDate`不使用`@Temporal`, 默认的`createDate`则包含日期和时间
 
 ### @Enumerated
 
-@Enumerated很好用，直接映射enum枚举类型的字段。源码如下：
+`@Enumerated`很好用，直接映射`enum`枚举类型的字段。源码如下：
 
 ```java
 public @interface Enumerated {
@@ -286,17 +284,17 @@ public class Employee {
 
 ### @Lob
 
-@Lob 将属性映射成数据库支持的大对象类型，支持以下两种数据库类型的字段。
+`@Lob` 将属性映射成数据库支持的大对象类型，支持以下两种数据库类型的字段。
 
-- Clob（Character Large Ojects）类型是长字符串类型，java.sql.Clob、Character[]、char[]和String将被映射为Clob类型。
-- Blob（Binary Large Objects）类型是字节类型，java.sql.Blob、Byte[]、byte[]和实现了Serializable接口的类型将被映射为Blob类型。
-- Clob、Blob占用内存空间较大，一般配合@Basic(fetch=FetchType.LAZY)将其设置为延迟加载。
+- `Clob`（Character Large Ojects）类型是长字符串类型，`java.sql.Clob`、`Character[]`、`char[]`和`String`将被映射为`Clob`类型。
+- `Blob`（Binary Large Objects）类型是字节类型，`java.sql.Blob`、`Byte[]`、`byte[]`和实现了`Serializable`接口的类型将被映射为`Blob`类型。
+- `Clob`、`Blob`占用内存空间较大，一般配合`@Basic(fetch=FetchType.LAZY)`将其设置为延迟加载。
 
 ## 关联关系注解
 
 ### @JoinColumn
 
-@JoinColumn用于定义外键关联的字段名称。源码如下：
+`@JoinColumn`用于定义外键关联的字段名称。源码如下：
 
 ```java
 @Repeatable(JoinColumns.class)
@@ -334,13 +332,13 @@ public @interface JoinColumn {
 
 ```
 
-@JoinColumn主要配合@OneToOne、@ManyToOne、@OneToMany一起使用，单独使用没有意义。
+`@JoinColumn`主要配合`@OneToOne`、`@ManyToOne`、`@OneToMany`一起使用，单独使用没有意义。
 
-> @JoinColumns定义多个字段的关联关系。
+!> `@JoinColumns`定义多个字段的关联关系。
 
 ### @OneToOne
 
-@OneToOne用户描述关联表字段的一对一的关系。源码如下：
+`@OneToOne`用户描述关联表字段的一对一的关系。源码如下：
 
 ```java
 public @interface OneToOne {
@@ -360,7 +358,7 @@ public @interface OneToOne {
 
 ```
 
-其中，CascadeType有几下类型：
+其中，`CascadeType`有几下类型：
 
 ```java
 public enum CascadeType {
@@ -379,20 +377,20 @@ public enum CascadeType {
 }
 ```
 
-关于mappedBy的使用，需要注意以下点：
+关于`mappedBy`的使用，需要注意以下点：
 
 - 只有关系维护方才能操作两者的关系，被维护方即使设置了维护方属性进行存储也不会更新外键关联。
-- mappedBy不能与@JoinColumn或者@JoinTable同时使用
-- mappedBy的值指的是另一方的实体里面属性的字段，而不是数据库的字段，也不是实体的对象的名字
+- `mappedBy`不能与`@JoinColumn`或者`@JoinTable`同时使用
+- `mappedBy`的值指的是另一方的实体里面属性的字段，而不是数据库的字段，也不是实体的对象的名字
 
-OneToOne需要配合@JoinColumn一起使用。注意：可以双向关联，也可以只配置一方，需要视实际需求而定。
+`OneToOne`需要配合`@JoinColumn`一起使用。注意：可以双向关联，也可以只配置一方，需要视实际需求而定。
 
 ### @OneToMany & @ManyToOne
 
-@OneToMany：一对多关系
-@ManyToOne: 多对一关系
+`@OneToMany`：一对多关系
+`@ManyToOne`: 多对一关系
 
-@OneToMany与@ManyToOne可以相对存在，也可只存在一方。它们的源码如下：
+`@OneToMany`与`@ManyToOne`可以相对存在，也可只存在一方。它们的源码如下：
 
 ```java
 public @interface OneToMany {
@@ -415,7 +413,7 @@ public @interface ManyToOne {
 
 ### @OrderBy
 
-@OrderBy关联查询时排序，一般和@neToMany一起使用。源码如下：
+`@OrderBy`关联查询时排序，一般和`@neToMany`一起使用。源码如下：
 
 ```java
 public @interface OrderBy {
@@ -426,7 +424,7 @@ public @interface OrderBy {
 
 ### @JoinTable
 
-如果对象与对象之间有一个关联关系表的时候，就会用到@JoinTable，一般和@ManyToMany一起使用。源码如下：
+如果对象与对象之间有一个关联关系表的时候，就会用到`@JoinTable`，一般和`@ManyToMany`一起使用。源码如下：
 
 ```java
 public @interface JoinTable {
@@ -447,7 +445,7 @@ public @interface JoinTable {
 
 ### @ManyToMany
 
-@ManyToMany用于描述多对多的关系,和@OneToOne、@ManyToOne一样也有单向、双向之分。单向双向和注解没有关系，只看实体类之间是否相互引用。源码如下：
+`@ManyToMany`用于描述多对多的关系,和`@OneToOne`、`@ManyToOne`一样也有单向、双向之分。单向双向和注解没有关系，只看实体类之间是否相互引用。源码如下：
 
 ```java
 public @interface ManyToMany {
@@ -461,13 +459,13 @@ public @interface ManyToMany {
 
 ### 扩展：N+1问题
 
-当使用@ManyToMany、@ManyToOne、@OneToMany、@OneToOne关联关系的时候，SQL真正执行的时候是由一条主表查询和N条子表查询组成的。这种查询效率一般比较低下，比如子对象有N个就会执行N+1条SQL。
+当使用`@ManyToMany`、`@ManyToOne`、`@OneToMany`、`@OneToOne`关联关系的时候，SQL真正执行的时候是由一条主表查询和N条子表查询组成的。这种查询效率一般比较低下，比如子对象有N个就会执行N+1条SQL。
 
 可以采用以下方法进行优化：
 
 - 减少 N+1 SQL 的条数
-- 使用 @Fetch 来改变获取数据策略
-- 使用 @EntityGraph
+- 使用 `@Fetch` 来改变获取数据策略
+- 使用 `@EntityGraph`
 
 #### 减少N+1的SQL条数
 
@@ -477,7 +475,7 @@ public @interface ManyToMany {
 spring.jpa.properties.hibernate.default_batch_fetch_size=2
 ```
 
-或者，也可以使用 @BatchSize 注解， 如：
+或者，也可以使用 `@BatchSize` 注解， 如：
 
 ```java
 @OneToMany(fetch = FetchType.EAGER)
@@ -489,13 +487,13 @@ spring.jpa.properties.hibernate.default_batch_fetch_size=2
 private List<User> users;
 ```
 
-关于 size 的值配置，可以根据实际数据量来评估，不必设置的过高。
+关于 `size` 的值配置，可以根据实际数据量来评估，不必设置的过高。
 
-> @BatchSize 的使用具有局限性，不能作用于 @ManyToOne 和 @OneToOne 的关联关系上，那样代码是不起作用的。
+!> `@BatchSize` 的使用具有局限性，不能作用于 `@ManyToOne` 和 `@OneToOne` 的关联关系上，那样代码是不起作用的。
 
 #### 使用 @Fetch 来改变获取数据策略
 
-Hibernate 提供了一个 @Fetch 注解，用来改变获取数据的策略。API如下：
+Hibernate 提供了一个 `@Fetch` 注解，用来改变获取数据的策略。API如下：
 
 ```java
 // fetch注解只能用在方法和字段上面
@@ -518,24 +516,24 @@ public enum FetchMode {
 
 其中，它们之间都有一些限制：
 
-- <font color=#42b983>FetchMode.SELECT：</font> N+1 SQl问题
-- <font color=#42b983>FetchMode.JOIN：</font> 只支持类似 findById(id) 的方法，只能根据 ID 查询才有效果
-- <font color=#42b983>FetchMode.SUBSELECT：</font>虽然不限使用方式，但是只支持 OneToMany 的关联关系
+- `FetchMode.SELECT：` N+1 SQl问题
+- `FetchMode.JOIN：` 只支持类似 `findById(id)` 的方法，只能根据 ID 查询才有效果
+- `FetchMode.SUBSELECT：`虽然不限使用方式，但是只支持 `OneToMany` 的关联关系
 
 #### @EntityGraph
 
-JPA 2.1推出来的@EntityGraph、@NamedEntityGraph用来提高查询效率，很好地解决了N+1条SQL的问题。两者需要配合起来使用，缺一不可。@NamedEntityGraph配置在@Entity上面，而@EntityGraph配置在Repository的查询方法上面。
+JPA 2.1推出来的`@EntityGraph`、`@NamedEntityGraph`用来提高查询效率，很好地解决了N+1条SQL的问题。两者需要配合起来使用，缺一不可。`@NamedEntityGraph`配置在`@Entity`上面，而`@EntityGraph`配置在`Repository`的查询方法上面。
 
 ____
 
-> [!attention]
+> [!attention|label:有些坑需要注意]
 >
-> - 所有的注解要么全配置在字段上，要么全配置在get方法上，不能混用，混用就会启动不起来，但是语法配置没有问题。
-> - 所有的关联都是支持单向关联和双向关联的，视具体业务场景而定。JSON序列化的时候使用双向注解会产生死循环，需要人为手动转化一次，或者使用@JsonIgnore。
-> - 在所有的关联查询中，表一般是不需要建立外键索引的。@mappedBy的使用需要注意。
+> - 所有的注解要么全配置在字段上，要么全配置在`get`方法上，不能混用，混用就会启动不起来，但是语法配置没有问题。
+> - 所有的关联都是支持单向关联和双向关联的，视具体业务场景而定。JSON序列化的时候使用双向注解会产生死循环，需要人为手动转化一次，或者使用`@JsonIgnore`。
+> - 在所有的关联查询中，表一般是不需要建立外键索引的。`@mappedBy`的使用需要注意。
 > - 级联删除比较危险，建议考虑清楚，或者完全掌握。
-> - 不同的关联关系的配置，@JoinClumn里面的name、referencedColumnName代表的意思是不一样的，很容易弄混，可以根据打印出来的SQL做调整。
+> - 不同的关联关系的配置，`@JoinClumn`里面的`name`、`referencedColumnName`代表的意思是不一样的，很容易弄混，可以根据打印出来的SQL做调整。
 > - 当配置这些关联关系的时候建议大家直接在表上面，把外键建好，然后通过后面我们介绍的开发工具直接生成，这样可以减少自己调试的时间。
 
 
-> [综合实例](https://github.com/LvanLiu/spring-boot-demo/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/MappingTableQueryTest.java)
+?> _DEMO_ [综合实例](https://github.com/LvanLiu/spring-boot-demo/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/MappingTableQueryTest.java)
