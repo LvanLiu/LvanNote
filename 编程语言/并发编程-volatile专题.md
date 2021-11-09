@@ -1,12 +1,12 @@
 # volatile专题
 
-> 哪里有阴影，哪里就有光. -雨果
+> :pencil2: 哪里有阴影，哪里就有光. -雨果
 
 ## volatile初步了解
 
-Java编程语言允许线程访问共享变量，为了确保共享变量能被准确和一致地更新，线程应该确保通过排他锁单独获得这个变量。Java语言提供了volatile，在某些情况下比锁要更加方便。如果一个字段被声明成volatile，Java线程内存模型确保所有线程看到这个变量的值是一致的。
+Java编程语言允许线程访问共享变量，为了确保共享变量能被准确和一致地更新，线程应该确保通过排他锁单独获得这个变量。Java语言提供了`volatile`，在某些情况下比锁要更加方便。如果一个字段被声明成`volatile`，Java线程内存模型确保所有线程看到这个变量的值是一致的。
 
-如果volatile变量修饰符使用恰当的话，他比synchronized的使用和执行成本更低，因为它不会引起线程上下文的切换和调度。
+如果`volatile`变量修饰符使用恰当的话，他比`synchronized`的使用和执行成本更低，因为它不会引起线程上下文的切换和调度。
 
 ## volatile在双重检查单例中的应用
 
@@ -35,9 +35,9 @@ public class LazySingleton {
 }
 ```
 
-以上instance变量，使用了volatile来声明了，为什么使用了双重检查，还需要加上volatile呢？
+以上`instance`变量，使用了`volatile`来声明了，为什么使用了双重检查，还需要加上`volatile`呢？
 
-如果去掉了volatile，那么这一行代码就会产生问题：
+如果去掉了`volatile`，那么这一行代码就会产生问题：
 
 ```java
 instance = new LazySingleton();
@@ -67,13 +67,13 @@ ctorInstance(memory);   //初始化对象
 
 ![](../img/编程语言/双重检查重排序.png)
 
-当设置instance指向分配的内存地址，这个时候instance就不为空，那么线程B就有可能访问到尚未初始化的instance对象。
+当设置`instance`指向分配的内存地址，这个时候`instance`就不为空，那么线程B就有可能访问到尚未初始化的`instance`对象。
 
-因此，为了避免指令重排序的问题，声明instance变量时，需要使用volatile。
+因此，为了避免指令重排序的问题，声明`instance`变量时，需要使用`volatile`。
 
 ## volatile原理
 
-对于以上的案例，使用了volatile来避免了指令重排序的问题,同时，volatile还保证了可见性。
+对于以上的案例，使用了`volatile`来避免了指令重排序的问题,同时，`volatile`还保证了可见性。
 
 以以下代码作为栗子：
 
@@ -81,13 +81,52 @@ ctorInstance(memory);   //初始化对象
 instance = new LazySingleton();
 ```
 
-将其转换为汇编代码后，使用volatile声明的变量会多出一个Lock前缀指令，Lock指令的作用：
+将其转换为汇编代码后，使用`volatile`声明的变量会多出一个`Lock`前缀指令，`Lock`指令的作用：
 
 - 将当前CPU缓存行的数据立即写回到系统内存
 - 这个写回内存的操作会使在其他CPU里缓存了该内存地址的数据无效
 - lock前缀指令禁止指令重排
 
-Lock前缀指令导致在执行指令期间，声言处理器的LOCK#信号，LOCK#信号确保在声言该信号期间，处理器可以独占任何共享内存，后面可以通过缓存一致性协议，就可以保证了数据的可见性了。
+`Lock`前缀指令导致在执行指令期间，声言处理器的`LOCK#`信号，`LOCK#`信号确保在声言该信号期间，处理器可以独占任何共享内存，后面可以通过缓存一致性协议，就可以保证了数据的可见性了。
 
 ## volatile内存语义
+
+### volatile写-读建立的happend-before关系
+
+从JSR-133开始（即从JDK5开始），volatile变量的写-读可以实现线程之间的通信。通过下面的栗子来加深理解happend-before关系。
+
+```java
+public class VolatileExample {
+    private int a = 0;
+    private volatile boolean flag = false;
+
+    public void writer() {
+        a = 1;              //1
+        flag = true;        //2
+    }
+
+    public void reader() {  
+        if (flag) {         //3
+            int i = a;      //4
+        }
+    }
+}
+```
+
+假设线程A执行`writer()`方法之后，线程B执行`reader()`方法。根据happens-before规则，这个过程建立的happens-before关系可以分为3类：
+
+- 根据次序规则
+  - 1 happend before 2
+  - 3 happend before 4
+- 根据volatile规则
+  - 2 happend 3
+- 根据传递性规则
+  - 1 happend before 4
+
+将这些关系图示化：
+
+![](../img/编程语言/volatile写-读建立的happens-before关系.png)
+
+这里A线程写一个`volatile`变量后，B线程读同一个`volatile`变量。A线程在写`volatile`变量之前所有可见的共享变量，在B线程读同一个`volatile`变量后，将立即变得对B线程可见。
+
 ## volatile与原子性问题
