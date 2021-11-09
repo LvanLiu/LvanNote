@@ -129,4 +129,6 @@ public class VolatileExample {
 
 这里A线程写一个`volatile`变量后，B线程读同一个`volatile`变量。A线程在写`volatile`变量之前所有可见的共享变量，在B线程读同一个`volatile`变量后，将立即变得对B线程可见。
 
+!> 由于以上的栗子，变量`a`与变量`flag`之间不存在依赖关系，理论上它们是允许重排序的，但是由于`flag`变量是`volatile`, 编译器会在变量`a`与变量`flag`之间插入了内存屏障，因此保证了以上的次序关系。
+
 ## volatile与原子性问题
