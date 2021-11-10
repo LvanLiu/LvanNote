@@ -131,4 +131,19 @@ public class VolatileExample {
 
 !> 由于以上的栗子，变量`a`与变量`flag`之间不存在依赖关系，理论上它们是允许重排序的，但是由于`flag`变量是`volatile`, 编译器会在变量`a`与变量`flag`之间插入了内存屏障，因此保证了以上的次序关系。
 
+### volatile内存语义
+
+在Java代码中，`volatile`关键字主要有两层语义：
+
+- 不同线程对volatile变量的值具有内存可见性
+- 禁止进行指令重排序
+
+编译器为`volatile`生成了一个`Lock`指令来实现了内存可见性，如图。
+
+![](../img/编程语言/volatile内存语义.png)
+
+
+
+那
+
 ## volatile与原子性问题
