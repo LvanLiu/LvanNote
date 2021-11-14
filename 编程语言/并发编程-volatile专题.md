@@ -181,3 +181,7 @@ JMM针对编译器制定的`volatile`重排序规则表：
 > - `volatile`读操作的内存屏障插入策略为：在每个`volatile`写操作后插入LoadLoad（LL）屏障和LoadStore屏障，禁止后面的普通读、普通写和前面的`volatile`读操作发生重排序。
 
 ## volatile与原子性问题
+
+volatile能保证数据的可见性，但volatile不能完全保证数据的原子性，对于volatile类型的变量进行复合操作（如++），其仍存在线程不安全的问题。
+
+若要保证`volatile`的原子性，则需要使用锁来保证。
