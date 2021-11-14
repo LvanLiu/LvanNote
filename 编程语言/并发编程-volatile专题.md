@@ -152,6 +152,10 @@ public class VolatileExample {
 
 ?> 有序性的实现
 
-`volatile`语义中的有序性是通过内存屏障指令来确保的。
+`volatile`语义中的有序性是通过内存屏障指令来确保的。为了实现`volatile`关键字语义的有序性，JVM编译器在生成字节码时，会在指令序列中插入内存屏障来禁止特定类型的处理器重排序。
+
+JMM针对编译器制定的`volatile`重排序规则表：
+
+![volatile重排序.png](../img/编程语言/volatile重排序.png)
 
 ## volatile与原子性问题
