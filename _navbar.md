@@ -13,3 +13,4 @@
 * [程序设计](程序设计/guide.md)
 
 * 更多
+  * [一文掌握MapStruct](效率工程/一文掌握MapStruct.md)
