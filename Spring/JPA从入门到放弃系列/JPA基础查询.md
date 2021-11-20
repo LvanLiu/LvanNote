@@ -100,7 +100,7 @@ public <S extends T> S save(S entity) {
 
 如果我们去看JPA控制台打印出来的SQL，最少会有两条，一条是查询，一条是`insert`或者`update`。
 
-?> _DEMO_ [CrudRepository](https://github.com/LvanLiu/spring-boot-demo/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/CrudRepositoryTest.java)
+?> _DEMO_ [CrudRepository](https://github.com/LvanLiu/demo-all-in-one/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/CrudRepositoryTest.java)
 
 ## PagingAndSortingRepository详解
 
@@ -171,7 +171,7 @@ Sort sort = Sort.by(Sort.Direction.DESC, "xx");
 PageRequest pageRequest = PageRequest.of(pageNum, pageSize，sort);
 ```
 
-?> _DEMO_ [PagingAndSortingRepository](https://github.com/LvanLiu/spring-boot-demo/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/PagingAndSortingRepositoryTest.java)
+?> _DEMO_ [PagingAndSortingRepository](https://github.com/LvanLiu/demo-all-in-one/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/PagingAndSortingRepositoryTest.java)
 
 ## QueryByExampleExecutor详解
 
@@ -376,7 +376,7 @@ public interface Example<T> {
 }
 ```
 
-?> _DEMO_ [QueryByExampleExecutor](https://github.com/LvanLiu/spring-boot-demo/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/QueryByExampleExecutorTest.java)
+?> _DEMO_ [QueryByExampleExecutor](https://github.com/LvanLiu/demo-all-in-one/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/QueryByExampleExecutorTest.java)
 
 ## JpaRepository详解
 
@@ -434,7 +434,7 @@ CrudRepository提供了一个 `findById` 方法，为什么 JpaRepository 还需
 
 !> 使用 deleteAllByIdInBatch 的性能较高。
 
-?> _DEMO_ [JpaRepository](https://github.com/LvanLiu/spring-boot-demo/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/JpaRepositoryTest.java)
+?> _DEMO_ [JpaRepository](https://github.com/LvanLiu/demo-all-in-one/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/JpaRepositoryTest.java)
 
 ## JpaSpecificationExecutor详解
 
@@ -467,4 +467,4 @@ public interface JpaSpecificationExecutor<T> {
 
 !> JpaSpecificationExecutor 适用于复杂查询、动态查询场景
 
-?> _DEMO_ [JpaSpecificationExecutor](https://github.com/LvanLiu/spring-boot-demo/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/JpaSpecificationExecutorTest.java)
+?> _DEMO_ [JpaSpecificationExecutor](https://github.com/LvanLiu/demo-all-in-one/blob/master/jpa-demo/src/test/java/com/lvan/jpademo/repository/JpaSpecificationExecutorTest.java)
